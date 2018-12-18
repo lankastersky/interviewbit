@@ -44,7 +44,7 @@ public class Solution {
                 while (!leftStack.empty() && entity.value <= A.get(i)) {
                     entity = leftStack.pop();
                 }
-                if (entity.value > A.get(i) && leftStack.empty()) {
+                if (entity.value > A.get(i)) {
                     leftStack.push(entity);
                 }
                 if (leftStack.empty()) {
@@ -65,7 +65,7 @@ public class Solution {
                 while (!rightStack.empty() && entity.value <= A.get(i)) {
                     entity = rightStack.pop();
                 }
-                if (entity.value > A.get(i) && rightStack.empty()) {
+                if (entity.value > A.get(i)) {
                     rightStack.push(entity);
                 }
                 if (rightStack.empty()) {
