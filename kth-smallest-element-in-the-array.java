@@ -24,31 +24,49 @@ https://www.interviewbit.com/problems/kth-smallest-element-in-the-array/
 public class Solution {
     // DO NOT MODIFY THE LIST. IT IS READ ONLY
     public int kthsmallest(final List<Integer> A, int B) {
-        int[] mins = new int[B];
-        int n = A.size();
-        Set<Integer> set = new HashSet<>();
-        for (int i = 0; i < B; i++) {
-            int min = -1;
-            int minEl = Integer.MAX_VALUE;
-            for (int j = 0; j < n; j++) {
-                int el = A.get(j);
-                if (el < minEl && !set.contains(j)) {
-                    min = j;
-                    minEl = el;
-                }
-            }
-            mins[i] = minEl;
-            set.add(min);
+       // Based on method 2 from here
+       // https://www.geeksforgeeks.org/kth-smallestlargest-element-unsorted-array/
+        Queue<Integer> minheap = new PriorityQueue<>(A);
+        for (int i = 1; i < B; i++) {
+            minheap.poll();
         }
-        // for (int i = 0; i < B; i++) {
-        //     System.out.print(mins[i] + " ");
-        // }
-        // System.out.println();
-        // System.out.print("set: ");
-        // for (Integer el: set) {
-        //     System.out.print(el + " ");
-        // }
-        // System.out.println();
-        return mins[B - 1];
+        return minheap.peek();
     }
+    
+    // Gives TLE
+    // public int kthsmallest(final List<Integer> A, int B) {
+    //     int[] mins = new int[B];
+    //     int n = A.size();
+    //     Set<Integer> set = new HashSet<>();
+    //     for (int i = 0; i < B; i++) {
+    //         int min = -1;
+    //         int minEl = Integer.MAX_VALUE;
+    //         for (int j = 0; j < n; j++) {
+    //             int el = A.get(j);
+    //             if (el < minEl) {
+    //                 if (i > 0) {
+    //                     if (el >= mins[i - 1] && !set.contains(j)) {
+    //                         min = j;
+    //                         minEl = el;
+    //                     }
+    //                 } else {
+    //                     min = j;
+    //                     minEl = el;
+    //                 }
+    //             }
+    //         }
+    //         mins[i] = minEl;
+    //         set.add(min);
+    //     }
+    //     // for (int i = 0; i < B; i++) {
+    //     //     System.out.print(mins[i] + " ");
+    //     // }
+    //     // System.out.println();
+    //     // System.out.print("set: ");
+    //     // for (Integer el: set) {
+    //     //     System.out.print(el + " ");
+    //     // }
+    //     // System.out.println();
+    //     return mins[B - 1];
+    // }
 }
