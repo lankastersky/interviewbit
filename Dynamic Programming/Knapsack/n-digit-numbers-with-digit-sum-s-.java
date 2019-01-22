@@ -14,12 +14,19 @@ Hence output 4.
 https://www.interviewbit.com/problems/n-digit-numbers-with-digit-sum-s-/
 */
 
-// Gets TLE
 public class Solution {
-    Map<String, Integer> memo = new HashMap<>();
+
     static final int MOD = 1000000007;
+    int memo[][]; 
     
     public int solve(int N, int S) {
+        memo = new int[N + 1][];
+        for (int i = 0; i < N + 1; i++) {
+            memo[i] = new int[S + 1];
+            for (int j = 0; j < S + 1; j++) {
+                memo[i][j] = -1;
+            }
+        }
         int res = 0;
         for (int i = 1; i <= 9; i++) {
             if (S - i >= 0) {
@@ -41,10 +48,9 @@ public class Solution {
         if (S == 0) {
             return 1;
         }
-        
-        String key = String.format("%d_%d", N, S);
-        if (memo.containsKey(key)) {
-            return memo.get(key);
+
+        if (memo[N][S] != -1) {
+            return memo[N][S];
         }
         
         int res = 0;
@@ -53,7 +59,8 @@ public class Solution {
                 res = (res + solveImpl(N - 1, S - i)) % MOD;
             }
         }
-        memo.put(key, res);
+
+        memo[N][S] = res;
         return res;
     }
 }
