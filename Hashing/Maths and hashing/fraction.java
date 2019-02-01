@@ -14,7 +14,6 @@ Given numerator = 2, denominator = 3, return "0.(6)"
 https://www.interviewbit.com/problems/fraction/
 */
 
-// Fails on bigger test cases?
     public class Solution {
         
         // assertEquals("-0.5", solution.fractionToDecimal(-1, 2));
@@ -39,48 +38,33 @@ https://www.interviewbit.com/problems/fraction/
         // assertEquals("5.8(144)", solution.fractionToDecimal(3227, 555));
         
         public String fractionToDecimal(int A, int B) {
-            if (B == 0) {
-                return "";
-            }
-            if (A == 0) {
-                return "0";
-            }
-            if (B == Integer.MAX_VALUE || B == -Integer.MAX_VALUE) {
-                return "";
-            }         
-            long decimal = (long) A / B;
-            if (A % B == 0) {
-                return String.valueOf(decimal);
+            long a = A;
+            long b = B;
+            if (a % b == 0) {
+                return String.valueOf(a / b);
             }
             // fractional part
             StringBuilder builder = new StringBuilder();
-            if ((double) A / B < 0) {
+            if ((a > 0 && b < 0) || (a < 0 && b > 0)) {
                 builder.append("-");
             }
-            if (decimal == 0) {
-                builder.append("0");
-            } else {
-                builder.append(String.valueOf(decimal));
-            }
+            a=Math.abs(a);
+            b=Math.abs(b);            
+            builder.append(String.valueOf(a / b));
             builder.append(".");
             Map<Long, Integer> map = new HashMap<>();
-            long a = Math.abs((long) A);
-            long b = Math.abs((long) B);
-            long rem = a % b;
-            while (rem != 0 && !map.containsKey(rem)) {
-                map.put(rem, builder.length());
-                rem *= 10;
-                long val = rem / b;
+            a = (a % b) * 10;
+            while (!map.containsKey(a)) {
+                map.put(a, builder.length());
+                long val = a / b;
                 builder.append(String.valueOf(val));
-                rem %= b;
+                a = (a % b) * 10;
+                if(a==0) return builder.toString();
             }
-            if (map.containsKey(rem)) {
+            if (a != 0) {
                 // repeating part detected
-                int r = map.get(rem);
-                String ans = builder.toString();
-                String res = ans.substring(0, r) + "("
-                        + ans.substring(r, ans.length()) + ")";
-                return res;
+                int r = map.get(a);
+                builder = builder.insert(r, "(").append(")");
             }
             return builder.toString();
         }
