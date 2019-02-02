@@ -23,33 +23,11 @@ public class Solution {
     public int maxSubArray(final List<Integer> A) {
         int result = A.get(0);
         int sum = A.get(0);
-        int lf = 0;
-        int rf = 0;
-        
+
         for (int l = 1; l < A.size(); l++) {
-            if (A.get(l) > sum + A.get(l)) {
-                lf = l;
-                rf = l;
-            }
             sum = Math.max(A.get(l), sum + A.get(l));
-            if (sum > result) {
-                rf = l;
-                //System.out.println("Result: " + sum + "; lf: " + lf + "; rf: " + rf);
-            }
             result = Math.max(result, sum);
         }
-        /*
-        System.out.println("Size: " + A.size());
-        System.out.println("lf:" + lf);
-        System.out.println("rf:" + rf);
-        System.out.println("Check");
-        int s = 0;
-        for (int i = lf; i < rf; i++) {
-            System.out.print(A.get(i) + " ");
-            s += A.get(i);
-        }
-        System.out.println("\n" + s);
-        */
         return result;
     }
 }
