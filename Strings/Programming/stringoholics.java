@@ -53,8 +53,10 @@ Hence, 3 strings are their original self at time 4.
 
 https://www.interviewbit.com/problems/stringoholics/
 */
-
 public class Solution {
+    
+    final long MOD = (long) (1e9 + 7); //1000000007;
+    
     public int solve(ArrayList<String> A) {
         int n = A.size();
         if (n == 0) {
@@ -70,7 +72,7 @@ public class Solution {
         
         //long curLCM = rotations.get(0);
         Map<Long, Long> map = new HashMap<>();
-        for (int i = 1; i < n; i++) {
+        for (int i = 0; i < n; i++) {
             //long temp = lcm(rotations.get(i), curLCM); 
             // if (temp < curLCM) {
             //     //System.out.println("SOF:" + i + "," + curLCM + "," + temp);
@@ -80,15 +82,14 @@ public class Solution {
             long temp = rotations.get(i);
             factor(temp, map);
         }
-        long res = 1;
+        long res = 1L;
         for (Long p: map.keySet()) {
-            res = (res * pow(p, map.get(p))) % MOD;         
+            long cnt = map.get(p);
+            res = (res * pow(p, map.get(p))) % MOD;
         }
         return (int) res;
         // return (int) (curLCM % MOD);
     }
-    
-    final long MOD = 1000000007;
     
     // long lcm(long a, long b) {
     //     Map<Long, Long> map = new HashMap<>();
@@ -106,12 +107,15 @@ public class Solution {
         long res = 1;
         int i = 1;
         while (i++ <= f) {
-            res = (res * f) % MOD;
+            res = (res * p) % MOD;
         }
         return res;
     }
     
     void factor(long a, Map<Long, Long> map) {
+        if (a <= 1) {
+            return;
+        }
         long f;
         for (long p = 2; p <= Math.sqrt(a); p++) {
             f = 0;
