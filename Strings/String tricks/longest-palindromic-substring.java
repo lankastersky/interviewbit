@@ -21,6 +21,7 @@ Output : "aaabaaa"
 https://www.interviewbit.com/problems/longest-palindromic-substring/
 */
 
+// Can be solved for O(n), see https://en.wikipedia.org/wiki/Longest_palindromic_substring
 public class Solution {
     public String longestPalindrome(String s) {
         if (s == null || s.isEmpty()) {
