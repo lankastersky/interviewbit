@@ -2,7 +2,8 @@
 Sub Matrices with sum Zero
 
 Problem Setter: mihai.gheorghe Problem Tester: sneh_gupta
-Given a 2D matrix, find the number non-empty sub matrices, such that the sum of the elements inside the sub matrix is equal to 0. (note: elements might be negative).
+Given a 2D matrix, find the number non-empty sub matrices, such that the sum of the elements inside the sub matrix 
+is equal to 0. (note: elements might be negative).
 
 Example:
 
@@ -67,7 +68,9 @@ public class Solution {
 
         for (int r1 = 0; r1 < N; r1++) {
             for (int r2 = r1; r2 < N; r2++) {
+                // sum - number of such sums
                 Map<Integer, Integer> map = new HashMap<>();
+                // Find all sums A[0..i] and store in the map
                 for (int c = 0; c < M; c++) {
                     int colsum;
                     if (r1 > 0 ) {
@@ -81,12 +84,17 @@ public class Solution {
                         map.put(colsum, 1);
                     }
                 }
+                // We count all pairs of equal sums below.
+                // To count the case when sum = 0, adding a fake 0 (sum of empty array). 
                 if (map.containsKey(0)) {
                     map.put(0, map.get(0) + 1);
                 }
                 for (int sum: map.keySet()) {
                     int val = map.get(sum);
+                    // if sum(A[0..i]) = sum(A[0..j]),
+                    // than the subarray A[j + 1..i] will have zero sum.
                     if (val > 1) {
+                        // Number of pairs
                         int comb = val * (val - 1) / 2; 
                         res += comb;
                     }
