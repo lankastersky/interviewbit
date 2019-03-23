@@ -53,7 +53,7 @@ public class Solution {
         
         for (int i = 1; i < N; i++) {
             for (int j = 1; j < M; j++) {
-                m[i][j] = A.get(i).get(j) + m[i = 1][j] + m[i][j - 1] - m[i - 1][j - 1];
+                m[i][j] = A.get(i).get(j) + m[i - 1][j] + m[i][j - 1] - m[i - 1][j - 1];
             }
         }
 
