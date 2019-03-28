@@ -21,8 +21,7 @@ https://www.interviewbit.com/problems/intersecting-chords-in-a-circle/
 
 public class Solution {
     int[] memo;
-    // int base = (int) (10e9 + 7);
-    int base = 1000000007;
+    int base = (int) (1e9 + 7);
     
     public int chordCnt(int A) {
         if (A <= 0) {
