@@ -46,6 +46,7 @@ public class Solution {
                 d += add;
                 if (d < 2) {
                     add = d * 10;
+                    // E.g. 20
                     if (i > 0) {
                         sb.append(0);
                     }
