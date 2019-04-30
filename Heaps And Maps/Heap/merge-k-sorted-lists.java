@@ -25,25 +25,49 @@ https://www.interviewbit.com/problems/merge-k-sorted-lists/
  */
 public class Solution {
     public ListNode mergeKLists(ArrayList<ListNode> a) {
-        PriorityQueue<Integer> minheap = new PriorityQueue<>();
-        for (ListNode node: a) {
-            while (node != null) {
-                minheap.add(node.val);
-                node = node.next;
-            }
-        }
-        
+
+        PriorityQueue<ListNode> minheap = 
+            new PriorityQueue<>(
+                a.size(),
+                (ListNode left, ListNode right) -> Integer.compare(left.val, right.val));
+        minheap.addAll(a);
         ListNode head = null;
         ListNode cur = null;
         while (!minheap.isEmpty()) {
-            ListNode node = new ListNode(minheap.poll());
+            ListNode node = minheap.poll();
             if (head == null) {
                 head = node;
             } else {
                 cur.next = node;
             }
             cur = node;
+            if (node.next != null) {
+                minheap.add(node.next);
+            }
         }
         return head;
+        
+
+        // Non-optimal; doesn't uses the fact that lists are already sorted
+        // PriorityQueue<Integer> minheap = new PriorityQueue<>();
+        // for (ListNode node: a) {
+        //     while (node != null) {
+        //         minheap.add(node.val);
+        //         node = node.next;
+        //     }
+        // }
+        
+        // ListNode head = null;
+        // ListNode cur = null;
+        // while (!minheap.isEmpty()) {
+        //     ListNode node = new ListNode(minheap.poll());
+        //     if (head == null) {
+        //         head = node;
+        //     } else {
+        //         cur.next = node;
+        //     }
+        //     cur = node;
+        // }
+        // return head;
     }
 }
