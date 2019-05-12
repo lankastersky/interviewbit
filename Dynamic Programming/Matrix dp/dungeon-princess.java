@@ -36,7 +36,8 @@ https://www.interviewbit.com/problems/dungeon-princess/
 
 public class Solution {
 
-    int INF = Integer.MAX_VALUE;
+    int INF = Integer.MIN_VALUE;
+    
     public int calculateMinimumHP(ArrayList<ArrayList<Integer>> A) {
         int n = A.size();
         if (n == 0) {
@@ -54,27 +55,58 @@ public class Solution {
         dp[n - 1][m] = 0;
         for (int i = n - 1; i >= 0; i--) {
             for (int j = m - 1; j >= 0; j--) {
-                int req = Math.min(dp[i + 1][j], dp[i][j + 1]);
-                dp[i][j] = Math.max(0, req - A.get(i).get(j));
-                /*
-                 If A[i][j] == 0, then nothing is gained in this cell; the player 
-                 can leave the cell with the same points as he enters the room with.
-                 If A[i][j] < 0, then the player must have points greater than 
-                 req before entering (i, j) in order to compensate for 
-                 the points lost in this cell. The minimum amount of compensation is
-                 req - A[i][j].
-                 If A[i][j] > 0, then the player could enter (i, j) with points 
-                 as little as req – points[i][j]. since he could gain
-                 A[i][j]. points in this cell.  However, the value of req – A[i][j] 
-                 might drop to 0 or below in this situation.
-                 https://www.geeksforgeeks.org/minimum-positive-points-to-reach-destination/
-                 */
+                int req = Math.max(dp[i + 1][j], dp[i][j + 1]);
+                dp[i][j] = Math.min(0, req + A.get(i).get(j));
                 println(i + "," + j + ":" + dp[i][j]);
             }
         }
         
-        return dp[0][0] + 1; 
-    }    
+        return 1 - dp[0][0]; 
+    }     
+    
+    
+    // Cool but complicated
+    // int INF = Integer.MIN_VALUE;
+    // public int calculateMinimumHP(ArrayList<ArrayList<Integer>> A) {
+    //     int n = A.size();
+    //     if (n == 0) {
+    //         return 0;
+    //     }
+    //     int m = A.get(0).size();
+    //     int dp[][] = new int[n + 1][];
+    //     for (int i = 0; i <= n; i++) {
+    //         dp[i] = new int[m + 1];
+    //         for (int j = 0; j <= m; j++) {
+    //             dp[i][j] = INF;
+    //         }
+    //     }
+    //     dp[n][m - 1] = 0;
+    //     dp[n - 1][m] = 0;
+    //     for (int i = n - 1; i >= 0; i--) {
+    //         for (int j = m - 1; j >= 0; j--) {
+    //             int req = Math.min(dp[i + 1][j], dp[i][j + 1]);
+    //             dp[i][j] = Math.max(0, req - A.get(i).get(j));
+    //             /*
+    //              If A[i][j] == 0, then nothing is gained in this cell; the player 
+    //              can leave the cell with the same points as he enters the room with.
+    //              If A[i][j] < 0, then the player must have points greater than 
+    //              req before entering (i, j) in order to compensate for 
+    //              the points lost in this cell. The minimum amount of compensation is
+    //              req - A[i][j].
+    //              If A[i][j] > 0, then the player could enter (i, j) with points 
+    //              as little as req - A[i][j]. Since he could gain
+    //              A[i][j]. points in this cell.  However, the value of req - A[i][j] 
+    //              might drop to 0 or below in this situation.
+    //              https://www.geeksforgeeks.org/minimum-positive-points-to-reach-destination/
+    //              */
+    //             println(i + "," + j + ":" + dp[i][j]);
+    //         }
+    //     }
+        
+    //     return dp[0][0] + 1; 
+    // } 
+    
+    
     // Fails on big test cases
     // long dp[][];
     // int n;
@@ -145,6 +177,6 @@ public class Solution {
     // }
     
     void println(String s) {
-        System.out.println(s);
+        //System.out.println(s);
     }
 }
