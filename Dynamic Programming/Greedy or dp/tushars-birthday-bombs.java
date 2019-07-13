@@ -26,6 +26,7 @@ https://www.interviewbit.com/problems/tushars-birthday-bombs/
 */
 
 public class Solution {
+
     public ArrayList<Integer> solve(int R, ArrayList<Integer> S) {
         int n = S.size();
         ArrayList<Integer> res = new ArrayList<>();
@@ -33,59 +34,47 @@ public class Solution {
             return res;
         }
 
-        // Exclude too strong friends (mark as -1)
         int min = S.get(0);
-        for (int el: S) {
+        int imin = 0;
+        for (int i = 1; i < n; i++) {
+            int el = S.get(i);
             if (min > el) {
                 min = el;
+                imin = i;
             }
-        }    
+        }
+        ArrayList<Integer> newS = new ArrayList<>();
         int size = R / min;
-        for (int i = 0; i < n; i++) {
+        if (size == 0) {
+            return res;
+        }
+        int rem = R - min * size;
+        println(String.format("min=%d,size=%d, rem=%d", imin, size, rem));
+        for (int i = 0; i < imin; i++) {
             int el = S.get(i);
-            if (min * (size - 1) + el > R) {
-                S.set(i, -1);
+            while (el - min <= rem) {
+                res.add(i);
+                if (res.size() == size) {
+                    return res;
+                }
+                print(i + " ");
+                rem -= (el - min);
             }
         }
-
-        // for (int i = 0; i < n; i++) {
-        //     System.out.print(S.get(i) + " ");
-        // }
-        // System.out.println();
-
-        // Gives OOM, uses O(Rn) memory
-        int[] m = new int[R + 1];
-        ArrayList<Integer>[] friends = (ArrayList<Integer>[]) new ArrayList[R + 1];
-        for (int i = 0; i <= R; i++) {
-            m[i] = 0;
+        println("");
+        for (int i = res.size(); i < size; i++) {
+            res.add(imin);
+            print(imin + "; ");
         }
-        // unbounded knapsack problem, all values = 1
-        // See https://en.wikipedia.org/wiki/Knapsack_problem#Dynamic_programming_in-advance_algorithm
-        for (int w = min; w <= R; w++) {
-            for (int j = 0; j < n; j++) {
-                if (S.get(j) == -1) {
-                    continue;
-                }
-                int wj = S.get(j);
-                if (wj <= w) {
-                    if (m[w] < 1 + m[w - wj]) {
-                        m[w] = 1 + m[w - wj];
-                        // add j-th element
-                        if (friends[w - wj] != null) {
-                            friends[w] = new ArrayList<>(friends[w - wj]);
-                        } else {
-                            friends[w] = new ArrayList<>();
-                        }
-                        friends[w].add(j);
-                    }
-                }
-            }
-        }
-        if (friends[R] != null) {
-            res = new ArrayList(friends[R]);
-            Collections.sort(res);
-        }
-        
+        println("");
         return res;
+    }
+
+    void print(String s) {
+        //System.out.print(s);
+    }
+
+    void println(String s) {
+        //System.out.println(s);
     }
 }
