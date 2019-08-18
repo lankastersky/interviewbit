@@ -5,7 +5,8 @@ A robot is located at the top-left corner of an A x B grid (marked ‘Start’ i
 
 Path Sum: Example 1
 
-The robot can only move either down or right at any point in time. The robot is trying to reach the bottom-right corner of the grid (marked ‘Finish’ in the diagram below).
+The robot can only move either down or right at any point in time. The robot is trying to reach the bottom-right 
+corner of the grid (marked ‘Finish’ in the diagram below).
 
 How many possible unique paths are there?
 
