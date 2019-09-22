@@ -1,9 +1,13 @@
 /*
 Distinct Subsequences
 
-Given two sequences S, T, count number of unique ways in sequence S, to form a subsequence that is identical to the sequence T.
+Given two sequences S, T, count number of unique ways in sequence S, to form a subsequence that
+is identical to the sequence T.
 
- Subsequence : A subsequence of a string is a new string which is formed from the original string by deleting some (can be none ) of the characters without disturbing the relative positions of the remaining characters. (ie, "ACE" is a subsequence of "ABCDE" while "AEC" is not). 
+ Subsequence : A subsequence of a string is a new string which is formed from the original string
+ by deleting some (can be none ) of the characters without disturbing the relative positions of 
+ the remaining characters. (ie, "ACE" is a subsequence of "ABCDE" while "AEC" is not). 
+ 
 Example :
 
 S = "rabbbit" 
